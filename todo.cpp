@@ -24,5 +24,6 @@ string Todo::getName() {
 }
 
 void Todo::saveTodo() {
-  CSVParser todos("todos.txt", {"id", "name"});
+  CSVParser todos("todos.txt", {"id", "completed"});
+  todos.log();
 }

@@ -3,10 +3,15 @@
 using namespace std;
 
 class CSVParser {
-  string fileName;
-  vector<string> fieldNames;
+  private:
+    string fileName;
+    vector<string> fieldNames;
+    string delimiter;
+    vector<vector<string>> rows;
+    void parse();
+    vector<string> parseLine(string line);
 
   public:
-    CSVParser(string name, vector<string> fields);
-    vector<string> parse();
+    CSVParser(string name, vector<string> fields, string delim = ",");
+    void log();
 };
