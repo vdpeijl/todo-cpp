@@ -10,7 +10,7 @@ Todo::Todo(const string todoId, const string todoName, const bool isCompleted) {
   completed = isCompleted;
 }
 
-bool Todo::getStatus() {
+bool Todo::getStatus() const {
   return completed;
 }
 
@@ -18,8 +18,12 @@ void Todo::toggleStatus() {
   completed = !completed;
 }
 
-string Todo::getName() {
+string Todo::getName() const {
   return name;
+}
+
+string Todo::getId() const {
+  return id;
 }
 
 void Todo::display() {
