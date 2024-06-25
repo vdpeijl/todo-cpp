@@ -14,4 +14,6 @@ class Database {
   public:
     Database(const string name, const vector<string> fields, const string delim = ",");
     void log();
+    vector<vector<string>> getRows();
+    vector<string> getFieldNames();
 };

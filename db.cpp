@@ -15,13 +15,14 @@ vector<string> Database::readLine(string line) {
   int currentPos = 0;
   vector<string> columns;
 
-  for (int i = 0; i < fieldNames.size(); i++) {
+  for (const string& fieldName : fieldNames) {
     int nextPos = line.find(delimiter);
     string column = line.substr(currentPos, nextPos);
     columns.push_back(column);
-    cout << column << endl;
-    line.erase(currentPos, nextPos);
-    currentPos = nextPos + delimiter.length();
+
+    if (line.length()) {
+      line.erase(currentPos, nextPos + delimiter.length());
+    }
   }
 
   return columns;
@@ -51,4 +52,12 @@ void Database::log() {
       cout << "Column name: " << fieldNames[col] << ", value: " << rows[row][col] << endl;
     }
   }
+}
+
+vector<vector<string>> Database::getRows() {
+  return rows;
+}
+
+vector<string> Database::getFieldNames() {
+  return fieldNames;
 }

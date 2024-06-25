@@ -8,8 +8,9 @@ class Todo {
     string id;
 
   public:
-    Todo(string todoName);
+    Todo(const string id, const string name, const bool completed);
     string getName();
     bool getStatus();
     void toggleStatus();
+    void display();
 };

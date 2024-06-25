@@ -4,11 +4,10 @@
 #include "db.hpp"
 using namespace std;
 
-Todo::Todo(string todoName) {
-  srand (time(NULL));
+Todo::Todo(const string todoId, const string todoName, const bool isCompleted) {
+  id = todoId;
   name = todoName;
-  id = rand()%10000;
-  completed = false;
+  completed = isCompleted;
 }
 
 bool Todo::getStatus() {
@@ -21,4 +20,10 @@ void Todo::toggleStatus() {
 
 string Todo::getName() {
   return name;
+}
+
+void Todo::display() {
+  cout << "ID: " << id << endl;
+  cout << "Name: " << name << endl;
+  cout << "Completed: " << completed << endl;
 }
