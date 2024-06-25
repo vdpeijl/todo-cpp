@@ -1,17 +1,17 @@
 #include <iostream>
 #include <map>
 #include <fstream>
-#include "csv.hpp"
+#include "db.hpp"
 using namespace std;
 
-CSVParser::CSVParser(string name, vector<string> fields, string delim) {
+Database::Database(const string name, const vector<string> fields, const string delim) {
   fieldNames = fields;
   fileName = name;
   delimiter = delim;
-  parse();
+  read();
 }
 
-vector<string> CSVParser::parseLine(string line) {
+vector<string> Database::readLine(string line) {
   int currentPos = 0;
   vector<string> columns;
 
@@ -19,13 +19,15 @@ vector<string> CSVParser::parseLine(string line) {
     int nextPos = line.find(delimiter);
     string column = line.substr(currentPos, nextPos);
     columns.push_back(column);
-    currentPos = nextPos + 1;
+    cout << column << endl;
+    line.erase(currentPos, nextPos);
+    currentPos = nextPos + delimiter.length();
   }
 
   return columns;
 }
 
-void CSVParser::parse() {
+void Database::read() {
   ifstream file(fileName);
   string line;
 
@@ -33,21 +35,15 @@ void CSVParser::parse() {
     cerr << "Could not open the file!" << endl;
   }
 
-  int lineNumber = 0;
   while (getline(file, line)) {
-    if (lineNumber == 0) {
-      // do nothing
-    } else {
-      vector<string> columns = parseLine(line);
-      rows.push_back(columns);
-    }
-    lineNumber++;
+    vector<string> columns = readLine(line);
+    rows.push_back(columns);
   }
 
   file.close();
 }
 
-void CSVParser::log() {
+void Database::log() {
   for (int row = 0; row < rows.size(); row++) {
     //row
     for (int col = 0; col < rows[row].size(); col++) {

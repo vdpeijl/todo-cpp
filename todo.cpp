@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "todo.hpp"
-#include "csv.hpp"
+#include "db.hpp"
 using namespace std;
 
 Todo::Todo(string todoName) {
@@ -21,9 +21,4 @@ void Todo::toggleStatus() {
 
 string Todo::getName() {
   return name;
-}
-
-void Todo::saveTodo() {
-  CSVParser todos("todos.txt", {"id", "completed"});
-  todos.log();
 }

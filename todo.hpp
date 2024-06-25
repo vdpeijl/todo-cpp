@@ -12,5 +12,4 @@ class Todo {
     string getName();
     bool getStatus();
     void toggleStatus();
-    void saveTodo();
 };
