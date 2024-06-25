@@ -4,7 +4,7 @@
 using namespace std;
 
 Todo* findTodoById(vector<Todo>& todos, const string id) {
-  for (auto& todo : todos) {
+  for (Todo& todo : todos) {
     if (todo.getId() == id) {
       return &todo;
     }
@@ -16,7 +16,7 @@ int main() {
   vector<Todo> todos;
   Database db("todos.db", {"id", "name", "completed"});
   
-  for (const auto& row : db.getRows()) {
+  for (const vector<string>& row : db.getRows()) {
     Todo todo(row[0], row[1], row[2] == "true");
     todos.push_back(todo);
   }
@@ -24,5 +24,5 @@ int main() {
   Todo* found = findTodoById(todos, "1");
   found->toggleStatus();
 
-  cout << "Status: " << found->getStatus() << endl;
+  cout << "Name: " << found->getName() << endl;
 }
