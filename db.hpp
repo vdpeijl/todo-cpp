@@ -8,8 +8,9 @@ class Database {
     vector<string> fieldNames;
     string delimiter;
     vector<vector<string>> rows;
-    void read();
-    vector<string> readLine(string line);
+    void readFile();
+    void writeLines(const vector<string>& lines);
+    vector<string> readFileLine(string line);
 
   public:
     Database(const string name, const vector<string> fields, const string delim = ",");

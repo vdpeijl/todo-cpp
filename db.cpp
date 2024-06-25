@@ -8,27 +8,26 @@ Database::Database(const string name, const vector<string> fields, const string 
   fieldNames = fields;
   fileName = name;
   delimiter = delim;
-  read();
+  readFile();
 }
 
-vector<string> Database::readLine(string line) {
-  int currentPos = 0;
+vector<string> Database::readFileLine(string line) {
   vector<string> columns;
 
   for (const string& fieldName : fieldNames) {
     int nextPos = line.find(delimiter);
-    string column = line.substr(currentPos, nextPos);
+    string column = line.substr(0, nextPos);
     columns.push_back(column);
 
     if (line.length()) {
-      line.erase(currentPos, nextPos + delimiter.length());
+      line.erase(0, nextPos + delimiter.length());
     }
   }
 
   return columns;
 }
 
-void Database::read() {
+void Database::readFile() {
   ifstream file(fileName);
   string line;
 
@@ -37,8 +36,22 @@ void Database::read() {
   }
 
   while (getline(file, line)) {
-    vector<string> columns = readLine(line);
+    vector<string> columns = readFileLine(line);
     rows.push_back(columns);
+  }
+
+  file.close();
+}
+
+void Database::writeLines(const vector<string>& lines) {
+  ifstream file(fileName);
+
+  if (!file.is_open()) {
+    cerr << "Could not open the file!" << endl;
+  }
+
+  for (const string line : lines) {
+    cout << line << endl;
   }
 
   file.close();
@@ -46,9 +59,7 @@ void Database::read() {
 
 void Database::log() {
   for (int row = 0; row < rows.size(); row++) {
-    //row
     for (int col = 0; col < rows[row].size(); col++) {
-      // column
       cout << "Column name: " << fieldNames[col] << ", value: " << rows[row][col] << endl;
     }
   }
