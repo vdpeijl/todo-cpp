@@ -3,32 +3,6 @@
 #include "db.hpp"
 using namespace std;
 
-Todo* findTodoById(vector<Todo>& todos, const string id) {
-  for (Todo& todo : todos) {
-    if (todo.getId() == id) {
-      return &todo;
-    }
-  }
-  return nullptr;
-}
-
-void printTodos(const vector<Todo> todos) {
-  for (const Todo& todo : todos) {
-    string check = todo.getStatus() ? "x" : " ";
-    cout << "[" << check << "] " << todo.getId() << ". " << todo.getName() << endl;
-  }
-}
-
-vector<string> createTodoLines(const vector<Todo> todos) {
-  vector<string> lines;
-  for (const Todo& todo : todos) {
-    string status = todo.getStatus() ? "true" : "false";
-    string line = todo.getId() + "," + todo.getName() + "," + status;
-    lines.push_back(line);
-  }
-  return lines;
-}
-
 int main() {
   vector<Todo> todos;
   Database db("todos.db", {"id", "name", "completed"});

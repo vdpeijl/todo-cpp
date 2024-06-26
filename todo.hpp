@@ -15,3 +15,9 @@ class Todo {
     void toggleStatus();
     void display();
 };
+
+Todo* findTodoById(vector<Todo>& todos, const string id);
+
+void printTodos(const vector<Todo> todos);
+
+vector<string> createTodoLines(const vector<Todo> todos);
