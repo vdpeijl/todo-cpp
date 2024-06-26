@@ -44,14 +44,14 @@ void Database::readFile() {
 }
 
 void Database::writeLines(const vector<string>& lines) {
-  ifstream file(fileName);
+  ofstream file(fileName);
 
   if (!file.is_open()) {
     cerr << "Could not open the file!" << endl;
   }
 
   for (const string line : lines) {
-    cout << line << endl;
+    file << line << endl;
   }
 
   file.close();

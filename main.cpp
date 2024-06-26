@@ -19,6 +19,16 @@ void printTodos(const vector<Todo> todos) {
   }
 }
 
+vector<string> createTodoLines(const vector<Todo> todos) {
+  vector<string> lines;
+  for (const Todo& todo : todos) {
+    string status = todo.getStatus() ? "true" : "false";
+    string line = todo.getId() + "," + todo.getName() + "," + status;
+    lines.push_back(line);
+  }
+  return lines;
+}
+
 int main() {
   vector<Todo> todos;
   Database db("todos.db", {"id", "name", "completed"});
@@ -46,11 +56,13 @@ int main() {
     if (input == "toggle" || input == "t") {
       string id;
       cout << "Toggle item by id: " << endl;
-      cin >> id;
+      getline(cin, id);
       Todo* found = findTodoById(todos, id);
 
       if (found) {
         found->toggleStatus();
+        vector<string> lines = createTodoLines(todos);
+        db.writeLines(lines);
       } else {
         cout << "Invalid todo id." << endl;
       }
