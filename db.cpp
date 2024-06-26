@@ -14,8 +14,8 @@ Database::Database(const string name, const vector<string> fields, const string 
 vector<string> Database::readFileLine(string line) {
   vector<string> columns;
 
-  for (const string& fieldName : fieldNames) {
-    int nextPos = line.find(delimiter);
+  for (size_t i = 0; i < fieldNames.size(); i++) {
+    size_t nextPos = line.find(delimiter);
     string column = line.substr(0, nextPos);
     columns.push_back(column);
 
@@ -50,7 +50,7 @@ void Database::writeLines(const vector<string>& lines) {
     cerr << "Could not open the file!" << endl;
   }
 
-  for (const string line : lines) {
+  for (string line : lines) {
     file << line << endl;
   }
 
@@ -58,8 +58,8 @@ void Database::writeLines(const vector<string>& lines) {
 }
 
 void Database::log() {
-  for (int row = 0; row < rows.size(); row++) {
-    for (int col = 0; col < rows[row].size(); col++) {
+  for (size_t row = 0; row < rows.size(); row++) {
+    for (size_t col = 0; col < rows[row].size(); col++) {
       cout << "Column name: " << fieldNames[col] << ", value: " << rows[row][col] << endl;
     }
   }
