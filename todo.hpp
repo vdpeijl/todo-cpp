@@ -1,15 +1,14 @@
 #include <iostream>
 
-struct Todo {
-  bool completed;
-  std::string name;
-  std::string id;
-};
+namespace tlib {
+  struct todo {
+    bool completed;
+    std::string name;
+    std::string id;
+  };
 
-Todo* SetTodoStatus(Todo* todo, const bool completed);
-
-Todo* FindTodoById(std::vector<Todo>& todos, const std::string id);
-
-void PrintTodos(const std::vector<Todo> todos);
-
-std::vector<std::string> CreateTodoLines(const std::vector<Todo> todos);
+  tlib::todo* set_status(tlib::todo* todo, const bool completed);
+  tlib::todo* find_by_id(std::vector<tlib::todo>& todos, const std::string id);
+  void print_todos(const std::vector<tlib::todo> todos);
+  std::vector<std::string> create_todo_lines(const std::vector<tlib::todo> todos);
+}

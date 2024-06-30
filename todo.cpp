@@ -3,33 +3,35 @@
 #include "todo.hpp"
 #include "db.hpp"
 
-Todo* SetTodoStatus(Todo* todo, const bool completed) {
-  todo->completed = completed;
-  return todo;
-}
+namespace tlib {
+  tlib::todo* set_status(tlib::todo* todo, const bool completed) {
+    todo->completed = completed;
+    return todo;
+  }
 
-Todo* FindTodoById(std::vector<Todo>& todos, const std::string id) {
-  for (Todo& todo : todos) {
-    if (todo.id == id) {
-      return &todo;
+  tlib::todo* find_by_id(std::vector<tlib::todo>& todos, const std::string id) {
+    for (tlib::todo& todo : todos) {
+      if (todo.id == id) {
+        return &todo;
+      }
+    }
+    return nullptr;
+  }
+
+  void print_todos(const std::vector<tlib::todo> todos) {
+    for (const tlib::todo& todo : todos) {
+      std::string check = todo.completed ? "x" : " ";
+      std::cout << "[" << check << "] " << todo.id << ". " << todo.name << std::endl;
     }
   }
-  return nullptr;
-}
 
-void PrintTodos(const std::vector<Todo> todos) {
-  for (const Todo& todo : todos) {
-    std::string check = todo.completed ? "x" : " ";
-    std::cout << "[" << check << "] " << todo.id << ". " << todo.name << std::endl;
+  std::vector<std::string> create_todo_lines(const std::vector<tlib::todo> todos) {
+    std::vector<std::string> lines;
+    for (const tlib::todo& todo : todos) {
+      std::string status = todo.completed ? "true" : "false";
+      std::string line = todo.id + "," + todo.name + "," + status;
+      lines.push_back(line);
+    }
+    return lines;
   }
-}
-
-std::vector<std::string> CreateTodoLines(const std::vector<Todo> todos) {
-  std::vector<std::string> lines;
-  for (const Todo& todo : todos) {
-    std::string status = todo.completed ? "true" : "false";
-    std::string line = todo.id + "," + todo.name + "," + status;
-    lines.push_back(line);
-  }
-  return lines;
 }
