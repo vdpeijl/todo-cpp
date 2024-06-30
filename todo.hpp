@@ -1,23 +1,22 @@
 #include <iostream>
-using namespace std;
 
 class Todo {
   private:
-    bool completed;
-    string name;
-    string id;
+    bool completed_;
+    std::string name_;
+    std::string id_;
 
   public:
-    Todo(const string id, const string name, const bool completed);
-    string getName() const;
-    bool getStatus() const;
-    string getId() const;
-    void toggleStatus();
-    void display();
+    Todo(const std::string id, const std::string name, const bool completed);
+    std::string GetName() const;
+    bool GetStatus() const;
+    std::string GetId() const;
+    void ToggleStatus();
+    void Display();
 };
 
-Todo* findTodoById(vector<Todo>& todos, const string id);
+Todo* FindTodoById(std::vector<Todo>& todos, const std::string id);
 
-void printTodos(const vector<Todo> todos);
+void PrintTodos(const std::vector<Todo> todos);
 
-vector<string> createTodoLines(const vector<Todo> todos);
+std::vector<std::string> CreateTodoLines(const std::vector<Todo> todos);

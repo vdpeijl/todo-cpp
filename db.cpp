@@ -2,73 +2,72 @@
 #include <map>
 #include <fstream>
 #include "db.hpp"
-using namespace std;
 
-Database::Database(const string name, const vector<string> fields, const string delim) {
-  fieldNames = fields;
-  fileName = name;
-  delimiter = delim;
-  readFile();
+Database::Database(const std::string name, const std::vector<std::string> fields, const std::string delimiter) {
+  field_names_ = fields;
+  file_name_ = name;
+  delimiter_ = delimiter;
+  ReadFile();
 }
 
-vector<string> Database::readFileLine(string line) {
-  vector<string> columns;
+std::vector<std::string> Database::ReadFileLine(std::string line) {
+  std::vector<std::string> columns;
 
-  for (size_t i = 0; i < fieldNames.size(); i++) {
-    size_t nextPos = line.find(delimiter);
-    string column = line.substr(0, nextPos);
+  for (size_t i = 0; i < field_names_.size(); i++) {
+    size_t next_pos = line.find(delimiter_);
+    std::string column = line.substr(0, next_pos);
     columns.push_back(column);
 
     if (line.length()) {
-      line.erase(0, nextPos + delimiter.length());
+      line.erase(0, next_pos + delimiter_.length());
     }
   }
 
   return columns;
 }
 
-void Database::readFile() {
-  ifstream file(fileName);
-  string line;
+void Database::ReadFile() {
+  std::ifstream file(file_name_);
+  std::string line;
 
   if (!file.is_open()) {
-    cerr << "Could not open the file!" << endl;
+    std::cerr << "Could not open the file!" << std::endl;
   }
 
   while (getline(file, line)) {
-    vector<string> columns = readFileLine(line);
-    rows.push_back(columns);
+    std::vector<std::string> columns = ReadFileLine(line);
+    rows_.push_back(columns);
   }
 
   file.close();
 }
 
-void Database::writeLines(const vector<string>& lines) {
-  ofstream file(fileName);
+void Database::WriteLines(const std::vector<std::string>& lines) {
+  std::ofstream file(file_name_);
 
   if (!file.is_open()) {
-    cerr << "Could not open the file!" << endl;
+    std::cerr << "Could not open the file!" << std::endl;
   }
 
-  for (string line : lines) {
-    file << line << endl;
+  for (std::string line : lines) {
+    file << line << std::endl;
   }
 
   file.close();
 }
 
-void Database::log() {
-  for (size_t row = 0; row < rows.size(); row++) {
-    for (size_t col = 0; col < rows[row].size(); col++) {
-      cout << "Column name: " << fieldNames[col] << ", value: " << rows[row][col] << endl;
+void Database::Log() {
+  for (size_t row = 0; row < rows_.size(); row++) {
+    for (size_t col = 0; col < rows_[row].size(); col++) {
+      std::cout << "Column name: " << field_names_[col] << ", value: " << rows_[row][col] << std::endl;
     }
   }
 }
 
-vector<vector<string>> Database::getRows() {
-  return rows;
+std::vector<std::vector<std::string>> Database::GetRows() {
+  return rows_;
 }
 
-vector<string> Database::getFieldNames() {
-  return fieldNames;
+std::vector<std::string> Database::GetFieldNames() {
+  return field_names_;
 }

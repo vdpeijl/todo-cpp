@@ -1,20 +1,19 @@
 #include <fstream>
 #include <iostream>
-using namespace std;
 
 class Database {
   private:
-    string fileName;
-    vector<string> fieldNames;
-    string delimiter;
-    vector<vector<string>> rows;
-    void readFile();
-    vector<string> readFileLine(string line);
+    std::string file_name_;
+    std::vector<std::string> field_names_;
+    std::string delimiter_;
+    std::vector<std::vector<std::string>> rows_;
+    void ReadFile();
+    std::vector<std::string> ReadFileLine(std::string line);
 
   public:
-    Database(const string name, const vector<string> fields, const string delim = ",");
-    void writeLines(const vector<string>& lines);
-    void log();
-    vector<vector<string>> getRows();
-    vector<string> getFieldNames();
+    Database(const std::string name, const std::vector<std::string> fields, const std::string delimiter = ",");
+    void WriteLines(const std::vector<std::string>& lines);
+    void Log();
+    std::vector<std::vector<std::string>> GetRows();
+    std::vector<std::string> GetFieldNames();
 };

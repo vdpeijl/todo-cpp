@@ -2,57 +2,56 @@
 #include <fstream>
 #include "todo.hpp"
 #include "db.hpp"
-using namespace std;
 
-Todo::Todo(const string todoId, const string todoName, const bool isCompleted) {
-  id = todoId;
-  name = todoName;
-  completed = isCompleted;
+Todo::Todo(const std::string id, const std::string name, const bool completed) {
+  id_ = id;
+  name_ = name;
+  completed_ = completed;
 }
 
-bool Todo::getStatus() const {
-  return completed;
+bool Todo::GetStatus() const {
+  return completed_;
 }
 
-void Todo::toggleStatus() {
-  completed = !completed;
+void Todo::ToggleStatus() {
+  completed_ = !completed_;
 }
 
-string Todo::getName() const {
-  return name;
+std::string Todo::GetName() const {
+  return name_;
 }
 
-string Todo::getId() const {
-  return id;
+std::string Todo::GetId() const {
+  return id_;
 }
 
-void Todo::display() {
-  cout << "ID: " << id << endl;
-  cout << "Name: " << name << endl;
-  cout << "Completed: " << completed << endl;
+void Todo::Display() {
+  std::cout << "ID: " << id_ << std::endl;
+  std::cout << "Name: " << name_ << std::endl;
+  std::cout << "Completed: " << completed_ << std::endl;
 }
 
-Todo* findTodoById(vector<Todo>& todos, const string id) {
+Todo* FindTodoById(std::vector<Todo>& todos, const std::string id) {
   for (Todo& todo : todos) {
-    if (todo.getId() == id) {
+    if (todo.GetId() == id) {
       return &todo;
     }
   }
   return nullptr;
 }
 
-void printTodos(const vector<Todo> todos) {
+void PrintTodos(const std::vector<Todo> todos) {
   for (const Todo& todo : todos) {
-    string check = todo.getStatus() ? "x" : " ";
-    cout << "[" << check << "] " << todo.getId() << ". " << todo.getName() << endl;
+    std::string check = todo.GetStatus() ? "x" : " ";
+    std::cout << "[" << check << "] " << todo.GetId() << ". " << todo.GetName() << std::endl;
   }
 }
 
-vector<string> createTodoLines(const vector<Todo> todos) {
-  vector<string> lines;
+std::vector<std::string> CreateTodoLines(const std::vector<Todo> todos) {
+  std::vector<std::string> lines;
   for (const Todo& todo : todos) {
-    string status = todo.getStatus() ? "true" : "false";
-    string line = todo.getId() + "," + todo.getName() + "," + status;
+    std::string status = todo.GetStatus() ? "true" : "false";
+    std::string line = todo.GetId() + "," + todo.GetName() + "," + status;
     lines.push_back(line);
   }
   return lines;
