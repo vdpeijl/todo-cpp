@@ -9,7 +9,11 @@ int main() {
   Database db("todos.db", {"id", "name", "completed"});
   
   for (const std::vector<std::string>& row : db.GetRows()) {
-    Todo todo(row[0], row[1], row[2] == "true");
+    Todo todo = {
+      .id = row[0],
+      .name = row[1],
+      .completed = row[2] == "true"
+    };
     todos.push_back(todo);
   }
 
@@ -22,7 +26,6 @@ int main() {
     std::cout << "Enter command (h or help for all commands): " << std::endl;
     getline(std::cin, input);
 
-    // Check if the user wants to exit
     if (input == "exit" || input == "e") {
       std::cout << "Exiting the program." << std::endl;
       break;
@@ -42,8 +45,14 @@ int main() {
       std::cout << "Enter the name of your todo:" << std::endl;
       getline(std::cin, name);
       Todo prev = todos.back();
-      int prevIndex = stoi(prev.GetId());
-      Todo todo(std::to_string(prevIndex + 1), name, false);
+      int prevIndex = stoi(prev.id);
+
+      Todo todo = {
+        .id = std::to_string(prevIndex + 1),
+        .name = name,
+        .completed = false
+      };
+
       todos.push_back(todo);
       std::vector<std::string> lines = CreateTodoLines(todos);
       db.WriteLines(lines);
@@ -56,7 +65,7 @@ int main() {
       Todo* found = FindTodoById(todos, id);
 
       if (found) {
-        found->ToggleStatus();
+        SetTodoStatus(found, !found->completed);
         std::vector<std::string> lines = CreateTodoLines(todos);
         db.WriteLines(lines);
       } else {

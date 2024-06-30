@@ -1,19 +1,12 @@
 #include <iostream>
 
-class Todo {
-  private:
-    bool completed_;
-    std::string name_;
-    std::string id_;
-
-  public:
-    Todo(const std::string id, const std::string name, const bool completed);
-    std::string GetName() const;
-    bool GetStatus() const;
-    std::string GetId() const;
-    void ToggleStatus();
-    void Display();
+struct Todo {
+  bool completed;
+  std::string name;
+  std::string id;
 };
+
+Todo* SetTodoStatus(Todo* todo, const bool completed);
 
 Todo* FindTodoById(std::vector<Todo>& todos, const std::string id);
 
