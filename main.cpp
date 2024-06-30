@@ -19,13 +19,22 @@ int main() {
     std::cout << "##################################" << std::endl;
     PrintTodos(todos);
     std::cout << "##################################" << std::endl;
-    std::cout << "Enter command (or 'exit' to quit): " << std::endl;
+    std::cout << "Enter command (h or help for all commands): " << std::endl;
     getline(std::cin, input);
 
     // Check if the user wants to exit
     if (input == "exit" || input == "e") {
       std::cout << "Exiting the program." << std::endl;
       break;
+    }
+
+    if (input == "help" || input == "h") {
+      std::cout << "Available commands: " << std::endl;
+      std::cout << "[e, exit]  : Exit the program" << std::endl;
+      std::cout << "[a, add]   : Add a new to-do item" << std::endl;
+      std::cout << "[d, delete]: Delete a to-do item by ID" << std::endl;
+      std::cout << "[t, toggle]: Toggle a to-do item by ID" << std::endl;
+      std::cout << "[h, help]:   Show available commands" << std::endl;
     }
 
     if (input == "add" || input == "a") {
