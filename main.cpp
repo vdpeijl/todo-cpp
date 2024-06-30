@@ -8,7 +8,7 @@ int main() {
   std::vector<tlib::todo> todos;
   Database db("todos.db", {"id", "name", "completed"});
   
-  for (const std::vector<std::string>& row : db.GetRows()) {
+  for (const std::vector<std::string>& row : db.get_rows()) {
     tlib::todo todo = {
       .id = row[0],
       .name = row[1],
@@ -55,7 +55,7 @@ int main() {
 
       todos.push_back(todo);
       std::vector<std::string> lines = tlib::create_todo_lines(todos);
-      db.WriteLines(lines);
+      db.write_lines(lines);
     }
 
     if (input == "toggle" || input == "t") {
@@ -67,7 +67,7 @@ int main() {
       if (found) {
         tlib::set_status(found, !found->completed);
         std::vector<std::string> lines = tlib::create_todo_lines(todos);
-        db.WriteLines(lines);
+        db.write_lines(lines);
       } else {
         std::cout << "Invalid todo id." << std::endl;
       }
@@ -90,7 +90,7 @@ int main() {
         }
         
         std::vector<std::string> lines = tlib::create_todo_lines(todos);
-        db.WriteLines(lines);
+        db.write_lines(lines);
       }
     }
   }

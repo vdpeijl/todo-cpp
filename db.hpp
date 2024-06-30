@@ -3,17 +3,17 @@
 
 class Database {
   private:
-    std::string file_name_;
-    std::vector<std::string> field_names_;
-    std::string delimiter_;
-    std::vector<std::vector<std::string>> rows_;
-    void ReadFile();
-    std::vector<std::string> ReadFileLine(std::string line);
+    std::string m_file_name;
+    std::vector<std::string> m_field_names;
+    std::string m_delimiter;
+    std::vector<std::vector<std::string>> m_rows;
+    std::vector<std::string> read_file_line(std::string line);
+    void read_file();
 
   public:
     Database(const std::string name, const std::vector<std::string> fields, const std::string delimiter = ",");
-    void WriteLines(const std::vector<std::string>& lines);
-    void Log();
-    std::vector<std::vector<std::string>> GetRows();
-    std::vector<std::string> GetFieldNames();
+    void write_lines(const std::vector<std::string>& lines);
+    void log();
+    std::vector<std::vector<std::string>> get_rows();
+    std::vector<std::string> get_field_names();
 };
